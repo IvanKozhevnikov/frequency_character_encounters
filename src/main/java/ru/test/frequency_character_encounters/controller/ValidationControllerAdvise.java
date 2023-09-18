@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 public class ValidationControllerAdvise {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<?> handle(MethodArgumentNotValidException e) {
+    public ResponseEntity<?> argumentValidation(MethodArgumentNotValidException e) {
         return ResponseEntity.badRequest().body(
                 e.getFieldErrors().stream()
                         .map(f -> Map.of(
@@ -22,5 +22,4 @@ public class ValidationControllerAdvise {
                         .collect(Collectors.toList())
         );
     }
-
 }

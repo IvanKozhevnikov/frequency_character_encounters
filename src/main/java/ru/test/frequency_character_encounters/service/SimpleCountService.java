@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
-public class SimpleCountService {
+public class SimpleCountService implements CountService {
     private final MemorySymbolRepository memorySymbolRepository;
 
     public String createAndSortedMap(Input input) {
@@ -27,10 +27,6 @@ public class SimpleCountService {
                                 Map.Entry::getValue, (a, b) -> a,
                                 LinkedHashMap::new));
         memorySymbolRepository.saveToStorage(frequency);
-        return convertToPattern(memorySymbolRepository.takeFromStorage().getValue());
-    }
-
-    public String getTheResponse() {
         return convertToPattern(memorySymbolRepository.takeFromStorage().getValue());
     }
 

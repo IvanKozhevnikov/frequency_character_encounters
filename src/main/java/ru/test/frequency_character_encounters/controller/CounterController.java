@@ -8,7 +8,6 @@ import org.springframework.web.server.ResponseStatusException;
 import ru.test.frequency_character_encounters.model.Input;
 import ru.test.frequency_character_encounters.service.SimpleCountService;
 
-
 @RestController
 @AllArgsConstructor
 @RequestMapping("/count")

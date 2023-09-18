@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.test.frequency_character_encounters.cache.CacheResult;
 import ru.test.frequency_character_encounters.model.Input;
+import ru.test.frequency_character_encounters.model.Output;
 import ru.test.frequency_character_encounters.repository.MemorySymbolRepository;
 
 import java.util.LinkedHashMap;
@@ -30,6 +31,7 @@ public class SimpleCountService {
                         .collect(Collectors.toMap(Map.Entry::getKey,
                                 Map.Entry::getValue, (a, b) -> a,
                                 LinkedHashMap::new));
+        cacheResult.add(input.getSymbols(), new Output(frequency));
         memorySymbolRepository.saveToStorage(frequency);
         return convertToPattern(memorySymbolRepository.takeFromStorage().getValue());
     }

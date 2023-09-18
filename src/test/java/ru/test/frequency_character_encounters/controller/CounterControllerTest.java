@@ -27,8 +27,6 @@ class CounterControllerTest {
     @Autowired
     private ObjectMapper objectMapper;
 
-    private Input input;
-
     @Test
     public void createEmployeeAPI() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders

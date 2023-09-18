@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+Main-Class: ru.test.frequency_character_encounters.FrequencyCharacterEnc
+ ountersApplication
+

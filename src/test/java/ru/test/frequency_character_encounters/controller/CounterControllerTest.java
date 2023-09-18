@@ -15,7 +15,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import ru.test.frequency_character_encounters.Main;
 import ru.test.frequency_character_encounters.model.Input;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest(classes = Main.class)
 @AutoConfigureMockMvc
@@ -36,19 +36,7 @@ class CounterControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{\"symbols\":\"aaaaabccccyyyyyyyy\"}")
                 .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk());
-//                .andExpect(MockMvcResultMatchers.jsonPath("\"y\": 8, \"a\": 5, \"c\": 4, \"b\": 1").value(8))
-//                .andExpect(MockMvcResultMatchers.jsonPath("a").value(5));
+                .andExpect(status().isOk())
+                .andExpect(content().string("\"y\": 8, \"a\": 5, \"c\": 4, \"b\": 1"));
     }
-////    @Test
-////    public void givenStudents_whenGetAllStudents_thenListOfStudents() throws Exception {
-////        this.mockMvc.perform(MockMvcRequestBuilders.post("/count/out")
-////                .contentType("application/json").content("aaaaabccccyyyyyyyy")
-////
-////                .andExpect(status().is3xxRedirection());
-////        ArgumentCaptor<Input> argument = ArgumentCaptor.forClass(Input.class);
-////        verify(countService).createAndSortedMap(argument.capture());
-////        assertThat(argument.getValue().getSymbols()).isEqualTo("aaaaabccccyyyyyyyy");
-////    }
-
 }

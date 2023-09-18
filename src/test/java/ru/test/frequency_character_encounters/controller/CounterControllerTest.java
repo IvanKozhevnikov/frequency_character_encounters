@@ -24,7 +24,7 @@ class CounterControllerTest {
     private ObjectMapper objectMapper;
 
     @Test
-    public void whenStatusOkAndTurnsOutAnswer() throws Exception {
+    public void whenStatusOkAndOnlyLettersAndResultSortedDescendingOrder() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
                 .post("/count/out")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -48,7 +48,7 @@ class CounterControllerTest {
     }
 
     @Test
-    public void whenStatusBadRequestAndTurnsOutAnswerEmpt() throws Exception {
+    public void whenNoRequestBodyStatusBadRequestAndTurnsOutAnswerEmpty() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
                 .post("/count/out")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -59,4 +59,48 @@ class CounterControllerTest {
                         .string("[{\"symbols\":\"The"
                                 + " string must not be empty. Actual value: \"}]"));
     }
+
+    @Test
+    public void whenStatusOkAndOneCharacter() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders
+                .post("/count/out")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{\"symbols\":\"a\"}")
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content().string("\"a\": 1"));
+    }
+
+    @Test
+    public void whenStatusOkAndOnlyNumbersAndResultSortedDescendingOrder() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders
+                .post("/count/out")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{\"symbols\":\"555557777777333\"}")
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content().string("\"7\": 7, \"5\": 5, \"3\": 3"));
+    }
+
+    @Test
+    public void whenStatusOkAndOnlySymbolsAndResultSortedDescendingOrder() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders
+                .post("/count/out")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{\"symbols\":\"???%%%%::#####$$$$$$$$************\"}")
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content().string("\"*\": 12, \"$\": 8, \"#\": 5, \"%\": 4, \"?\": 3, \":\": 2"));
+    }
+    @Test
+    public void whenStatusOkAndOnlySymbolsAndResultSortedDescendingOrde() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders
+                .post("/count/out")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{\"symbols\":\"???%%%%::#####$$$$$$$$************\"}")
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content().string("\"*\": 12, \"$\": 8, \"#\": 5, \"%\": 4, \"?\": 3, \":\": 2"));
+    }
+
 }

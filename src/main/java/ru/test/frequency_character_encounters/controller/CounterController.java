@@ -19,9 +19,6 @@ public class CounterController {
 
     @PostMapping(value = "/out")
     public ResponseEntity<String> countChars(@Valid @RequestBody Input input) {
-//        if (input.getSymbols().isEmpty()) {
-//            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-//        }
         String response = simpleCountService.createAndSortedMap(input);
         return ResponseEntity.ok().body(response);
     }

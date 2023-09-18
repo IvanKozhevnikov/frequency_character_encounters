@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
 public class SimpleCountService implements CountService {
     private final MemorySymbolRepository memorySymbolRepository;
 
+    @Override
     public String createAndSortedMap(Input input) {
         Map<Character, Long> frequency =
                 input.getSymbols().chars()

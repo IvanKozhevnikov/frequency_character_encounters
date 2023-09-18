@@ -92,15 +92,4 @@ class CounterControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().string("\"*\": 12, \"$\": 8, \"#\": 5, \"%\": 4, \"?\": 3, \":\": 2"));
     }
-    @Test
-    public void whenStatusOkAndOnlySymbolsAndResultSortedDescendingOrde() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders
-                .post("/count/out")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"symbols\":\"???%%%%::#####$$$$$$$$************\"}")
-                .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(content().string("\"*\": 12, \"$\": 8, \"#\": 5, \"%\": 4, \"?\": 3, \":\": 2"));
-    }
-
 }

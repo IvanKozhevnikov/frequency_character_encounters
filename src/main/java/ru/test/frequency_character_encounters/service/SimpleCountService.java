@@ -14,22 +14,21 @@ import java.util.stream.Collectors;
 public class SimpleCountService {
     private final MemorySymbolRepository memorySymbolRepository;
 
-
     public String createAndSortedMap(Input input) {
-            Map<Character, Long> frequency =
-                    input.getSymbols().chars()
-                            .mapToObj(c -> (char) c)
-                            .collect(Collectors
-                                    .groupingBy(c -> c, Collectors.counting()))
-                            .entrySet().stream()
-                            .sorted(Map.Entry.<Character, Long>comparingByValue()
-                                    .reversed().thenComparing(Map.Entry.comparingByKey()))
-                            .collect(Collectors.toMap(Map.Entry::getKey,
-                                    Map.Entry::getValue, (a, b) -> a,
-                                    LinkedHashMap::new));
-            memorySymbolRepository.saveToStorage(frequency);
+        Map<Character, Long> frequency =
+                input.getSymbols().chars()
+                        .mapToObj(c -> (char) c)
+                        .collect(Collectors
+                                .groupingBy(c -> c, Collectors.counting()))
+                        .entrySet().stream()
+                        .sorted(Map.Entry.<Character, Long>comparingByValue()
+                                .reversed().thenComparing(Map.Entry.comparingByKey()))
+                        .collect(Collectors.toMap(Map.Entry::getKey,
+                                Map.Entry::getValue, (a, b) -> a,
+                                LinkedHashMap::new));
+        memorySymbolRepository.saveToStorage(frequency);
         return convertToPattern(memorySymbolRepository.takeFromStorage().getValue());
-        }
+    }
 
     public String getTheResponse() {
         return convertToPattern(memorySymbolRepository.takeFromStorage().getValue());

@@ -33,4 +33,30 @@ class CounterControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().string("\"y\": 8, \"a\": 5, \"c\": 4, \"b\": 1"));
     }
+
+    @Test
+    public void whenStatusBadRequestAndTurnsOutAnswerEmpty() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders
+                .post("/count/out")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{}")
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest())
+                .andExpect(content()
+                        .string("[{\"symbols\":\"The"
+                                + " string must not be empty. Actual value: null\"}]"));
+    }
+
+    @Test
+    public void whenStatusBadRequestAndTurnsOutAnswerEmpt() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders
+                .post("/count/out")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{\"symbols\":\"\"}")
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest())
+                .andExpect(content()
+                        .string("[{\"symbols\":\"The"
+                                + " string must not be empty. Actual value: \"}]"));
+    }
 }

@@ -1,6 +1,7 @@
 package ru.test.frequency_character_encounters.controller;
 
 
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,7 +10,7 @@ import org.springframework.web.server.ResponseStatusException;
 import ru.test.frequency_character_encounters.model.Input;
 import ru.test.frequency_character_encounters.service.SimpleCountService;
 
-import javax.validation.Valid;
+//import javax.validation.Valid;
 
 @RestController
 @AllArgsConstructor

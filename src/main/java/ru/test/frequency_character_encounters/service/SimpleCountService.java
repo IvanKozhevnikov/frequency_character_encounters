@@ -2,6 +2,7 @@ package ru.test.frequency_character_encounters.service;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import ru.test.frequency_character_encounters.cache.CacheResult;
 import ru.test.frequency_character_encounters.model.Input;
 import ru.test.frequency_character_encounters.repository.MemorySymbolRepository;
 
@@ -13,8 +14,11 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class SimpleCountService {
     private final MemorySymbolRepository memorySymbolRepository;
+    private CacheResult cacheResult;
 
     public String createAndSortedMap(Input input) {
+        if(cacheResult.get(input.getSymbols()) != null)
+            return convertToPattern(cacheResult.get(input.getSymbols()).getValue());
         Map<Character, Long> frequency =
                 input.getSymbols().chars()
                         .mapToObj(c -> (char) c)

@@ -24,7 +24,7 @@ class CounterControllerTest {
     private ObjectMapper objectMapper;
 
     @Test
-    public void createEmployeeAPI() throws Exception {
+    public void whenStatusOkAndTurnsOutAnswer() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
                 .post("/count/out")
                 .contentType(MediaType.APPLICATION_JSON)

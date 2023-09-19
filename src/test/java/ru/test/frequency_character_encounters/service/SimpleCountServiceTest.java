@@ -24,7 +24,7 @@ class SimpleCountServiceImplTest {
         SimpleCountService service = new SimpleCountService(new MemorySymbolRepository());
         Map<Character, Long> map = Map.of('y', 8L,
                 'a', 5L);
-        String expected = "\"a\": 5, \"y\": 8";
+        String expected = "\"y\": 8, \"a\": 5";
         String actualResult = service.convertToPattern(map);
         Assertions.assertEquals(actualResult, expected);
     }

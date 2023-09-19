@@ -10,8 +10,7 @@
 frequency_character_encounters.exe или через командную строку.
 Через командную строку запускать нужно следующим образом:
 - открываем командную строку, переходим в папку где расположен jar файл через cd C:\Users....
-- запускаем приложение через - start java -jar frequency_character_encounters.jar
-- при закрытии консоли приложение завершает работу
+- запускаем приложение через - java -cp frequency_character_encounters.jar com.somepackage.MainClass
 
 ## Технологический стек
 - Spring boot 2.7.10

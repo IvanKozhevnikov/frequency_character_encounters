@@ -16,7 +16,6 @@ public class MemorySymbolCounterCache implements SymbolCounterCache {
 
     @Override
     public void addToCache(String symbols, Output output) {
-        ;
         cache.put(symbols, output);
     }
 

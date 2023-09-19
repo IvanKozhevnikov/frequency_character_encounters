@@ -38,10 +38,4 @@ public class SimpleCharCounterService implements CharCounterService {
         memorySymbolCounterCache.addToCache(input.getSymbols(), output);
         return output;
     }
-
-    public String convertToPattern(Map<Character, Long> map) {
-        return map.keySet().stream()
-            .map(key -> "\"" + key + "\"" + ": " + map.get(key))
-            .collect(Collectors.joining(", ", "", ""));
-    }
 }

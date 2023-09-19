@@ -9,6 +9,10 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import ru.test.frequency_character_encounters.Main;
+import ru.test.frequency_character_encounters.model.Output;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -25,13 +29,19 @@ class CounterControllerTest {
 
     @Test
     public void whenStatusOkAndOnlyLettersAndResultSortedDescendingOrder() throws Exception {
+        Map<Character, Long> serviceResult = new HashMap<>();
+        serviceResult.put('y', 8L);
+        serviceResult.put('a', 5L);
+        serviceResult.put('c', 4L);
+        serviceResult.put('b', 1L);
+        Output expectedResult = Output.builder().value(serviceResult).build();
         mockMvc.perform(MockMvcRequestBuilders
                 .post("/count/out")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{\"symbols\":\"aaaaabccccyyyyyyyy\"}")
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(content().string("\"y\": 8, \"a\": 5, \"c\": 4, \"b\": 1"));
+                .andExpect(content().json(objectMapper.writeValueAsString(expectedResult)));
     }
 
     @Test
@@ -62,34 +72,50 @@ class CounterControllerTest {
 
     @Test
     public void whenStatusOkAndOneCharacter() throws Exception {
+        Map<Character, Long> serviceResult = new HashMap<>();
+        serviceResult.put('a', 1L);
+        Output expectedResult = Output.builder().value(serviceResult).build();
         mockMvc.perform(MockMvcRequestBuilders
                 .post("/count/out")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{\"symbols\":\"a\"}")
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(content().string("\"a\": 1"));
+                .andExpect(content().json(objectMapper.writeValueAsString(expectedResult)));
     }
 
     @Test
     public void whenStatusOkAndOnlyNumbersAndResultSortedDescendingOrder() throws Exception {
+        Map<Character, Long> serviceResult = new HashMap<>();
+        serviceResult.put('7', 7L);
+        serviceResult.put('5', 5L);
+        serviceResult.put('3', 3L);
+        Output expectedResult = Output.builder().value(serviceResult).build();
         mockMvc.perform(MockMvcRequestBuilders
                 .post("/count/out")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{\"symbols\":\"555557777777333\"}")
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(content().string("\"7\": 7, \"5\": 5, \"3\": 3"));
+                .andExpect(content().json(objectMapper.writeValueAsString(expectedResult)));
     }
 
     @Test
     public void whenStatusOkAndOnlySymbolsAndResultSortedDescendingOrder() throws Exception {
+        Map<Character, Long> serviceResult = new HashMap<>();
+        serviceResult.put('*', 12L);
+        serviceResult.put('$', 8L);
+        serviceResult.put('#', 5L);
+        serviceResult.put('%', 4L);
+        serviceResult.put('?', 3L);
+        serviceResult.put(':', 2L);
+        Output expectedResult = Output.builder().value(serviceResult).build();
         mockMvc.perform(MockMvcRequestBuilders
                 .post("/count/out")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{\"symbols\":\"???%%%%::#####$$$$$$$$************\"}")
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(content().string("\"*\": 12, \"$\": 8, \"#\": 5, \"%\": 4, \"?\": 3, \":\": 2"));
+                .andExpect(content().json(objectMapper.writeValueAsString(expectedResult)));
     }
 }

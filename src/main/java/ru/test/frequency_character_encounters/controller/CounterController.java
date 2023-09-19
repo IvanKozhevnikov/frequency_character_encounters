@@ -7,7 +7,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.test.frequency_character_encounters.model.Input;
-import ru.test.frequency_character_encounters.service.SimpleCountService;
+import ru.test.frequency_character_encounters.model.Output;
+import ru.test.frequency_character_encounters.service.SimpleCharCounterService;
 
 import javax.validation.Valid;
 
@@ -15,11 +16,11 @@ import javax.validation.Valid;
 @AllArgsConstructor
 @RequestMapping("/count")
 public class CounterController {
-    private final SimpleCountService simpleCountService;
+    private final SimpleCharCounterService simpleCountService;
 
     @PostMapping(value = "/out")
-    public ResponseEntity<String> countChars(@Valid @RequestBody Input input) {
-        String response = simpleCountService.createAndSortedMap(input);
+    public ResponseEntity<Output> countChars(@Valid @RequestBody Input input) {
+        Output response = simpleCountService.countChar(input);
         return ResponseEntity.ok().body(response);
     }
 }

@@ -6,7 +6,6 @@ import javax.validation.constraints.NotBlank;
 
 @Data
 public class Input {
-
     @NotBlank(message = "The string must not be empty")
     private String symbols;
 }

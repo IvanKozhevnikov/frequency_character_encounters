@@ -18,4 +18,14 @@ class SimpleCountServiceImplTest {
         String actualResult = service.createAndSortedMap(input);
         Assertions.assertEquals(actualResult, expected);
     }
+
+    @Test
+    public void testConvertToPattern() {
+        SimpleCountService service = new SimpleCountService(new MemorySymbolRepository());
+        Map<Character, Long> map = Map.of('y', 8L,
+                'a', 5L);
+        String expected = "\"a\": 5, \"y\": 8";
+        String actualResult = service.convertToPattern(map);
+        Assertions.assertEquals(actualResult, expected);
+    }
 }

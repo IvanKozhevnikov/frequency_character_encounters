@@ -1,6 +1,5 @@
 package ru.test.frequency_character_encounters.controller;
 
-
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

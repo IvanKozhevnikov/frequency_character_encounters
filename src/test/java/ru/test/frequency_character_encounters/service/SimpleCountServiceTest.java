@@ -14,10 +14,6 @@ class SimpleCountServiceImplTest {
         SimpleCountService service = new SimpleCountService(new MemorySymbolRepository());
         Input input = new Input();
         input.setSymbols("aaaaabccccyyyyyyyy");
-        Map<Character, Long> expectedResult = Map.of(
-                'a', 3L,
-                'y', 5L
-        );
         String expected = "\"y\": 8, \"a\": 5, \"c\": 4, \"b\": 1";
         String actualResult = service.createAndSortedMap(input);
         Assertions.assertEquals(actualResult, expected);

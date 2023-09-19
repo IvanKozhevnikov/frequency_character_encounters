@@ -6,7 +6,6 @@ import ru.test.frequency_character_encounters.model.Output;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
 @Repository
 @NoArgsConstructor
